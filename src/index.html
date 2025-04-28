@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>StoryApp</title>
+    <link rel="shortcut icon" href="favicon.png" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="manifest" href="manifest.json" />
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+  </head>
+  <body>
+    <a href="#main-content" class="skip-to-content">Skip to Content</a>
+
+    <header>
+      <div class="main-header container">
+        <a class="brand-name" href="#">🌟 StoryApp</a>
+
+        <nav id="navigation-drawer" class="navigation-drawer">
+          <h2 class="drawer-title">Menu</h2>
+          <ul id="nav-list" class="nav-list">
+            <li>
+              <a href="#/" class="nav-link">
+                <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10l9-7 9 7v10a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2v-4H9v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V10z" />
+                </svg>
+                Beranda
+              </a>
+            </li>
+            <li>
+              <a href="#/add-story" class="nav-link">
+                <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                </svg>
+                Tambah Cerita
+              </a>
+            </li>
+            <li id="nav-auth-placeholder"></li>
+            <li>
+              <a href="#/about" class="nav-link">
+                <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M12 20a8 8 0 1 1 0-16 8 8 0 0 1 0 16z" />
+                </svg>
+                Tentang
+              </a>
+            </li>
+          </ul>
+          <div id="nav-bottom"></div>
+        </nav>
+
+        <div class="overlay" id="drawer-overlay"></div>
+
+        <!-- Loading Overlay -->
+        <div id="loading-overlay" class="loading-overlay">Loading...</div>
+
+        <!-- Toast Container -->
+        <div id="toast"></div>
+
+        <div id="notif-button-container" class="notif-btn-container"></div>
+
+        <button id="drawer-button" class="drawer-button">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </header>
+
+    <main id="main-content" class="main-content"></main>
+
+    <footer class="footer">
+      <div class="container">
+        <p>&copy; 2025 StoryApp. Dibuat dengan ❤️ oleh abell</p>
+      </div>
+    </footer>
+  </body>
+</html>
