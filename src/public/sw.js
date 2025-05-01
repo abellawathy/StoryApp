@@ -43,8 +43,8 @@ self.addEventListener("push", async (event) => {
   const data = event.data ? event.data.json() : {};
   const options = {
     body: data.message || "Kamu punya cerita baru!",
-    icon: "/icons/icon-192x192.png",
-    badge: "/icons/icon-72x72.png",
+    icon: "icons/icon-192x192.png",
+    badge: "icons/icon-72x72.png",
   };
 
   event.waitUntil(
@@ -58,8 +58,8 @@ self.addEventListener("message", (event) => {
     const { title, message } = event.data.payload || {};
     const options = {
       body: message || "Simulasi notifikasi",
-      icon: "/icons/icon-192x192.png",
-      badge: "/icons/icon-72x72.png",
+      icon: "icons/icon-192x192.png",
+      badge: "icons/icon-72x72.png",
     };
 
     event.waitUntil(

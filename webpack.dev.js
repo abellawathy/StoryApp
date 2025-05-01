@@ -7,7 +7,7 @@ module.exports = merge(common, {
   output: {
     filename: '[name].bundle.js',
     path: path.resolve(__dirname, 'dist'),
-    publicPath: '/',
+    publicPath: 'auto',
   },
   module: {
     rules: [
@@ -23,6 +23,7 @@ module.exports = merge(common, {
   devServer: {
     static: path.resolve(__dirname, 'dist'),
     port: 9000,
+    historyApiFallback: true,
     client: {
       overlay: {
         errors: true,
