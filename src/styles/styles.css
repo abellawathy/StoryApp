@@ -1016,3 +1016,12 @@ hr {
     padding: 15px;
   }
 }
+
+/* SAVED */
+.saved-title {
+  font-size: 2rem;
+  color: #8f87f1;
+  text-align: center;
+  margin-bottom: 30px;
+  margin-top: 0px;
+}

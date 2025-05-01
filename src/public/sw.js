@@ -1,29 +1,33 @@
-import { precacheAndRoute } from 'workbox-precaching';
-import { registerRoute } from 'workbox-routing';
-import { CacheFirst, NetworkFirst } from 'workbox-strategies';
+self.importScripts('https://storage.googleapis.com/workbox-cdn/releases/6.5.4/workbox-sw.js');
 
-precacheAndRoute(self.__WB_MANIFEST);
+if (workbox) {
+  console.log('[SW] Workbox berhasil dimuat');
 
-registerRoute(
-  ({ request }) => request.mode === 'navigate',
-  new NetworkFirst({
-    cacheName: 'pages-cache',
-  })
-);
+  workbox.precaching.precacheAndRoute(self.__WB_MANIFEST);
 
-registerRoute(
-  ({ request }) => request.destination === 'style' || request.destination === 'script',
-  new CacheFirst({
-    cacheName: 'assets-cache',
-  })
-);
+  workbox.routing.registerRoute(
+    ({ request }) => request.mode === 'navigate',
+    new workbox.strategies.NetworkFirst({
+      cacheName: 'pages-cache',
+    })
+  );
 
-registerRoute(
-  ({ request }) => request.destination === 'image',
-  new CacheFirst({
-    cacheName: 'images-cache',
-  })
-);
+  workbox.routing.registerRoute(
+    ({ request }) => request.destination === 'style' || request.destination === 'script',
+    new workbox.strategies.CacheFirst({
+      cacheName: 'assets-cache',
+    })
+  );
+
+  workbox.routing.registerRoute(
+    ({ request }) => request.destination === 'image',
+    new workbox.strategies.CacheFirst({
+      cacheName: 'images-cache',
+    })
+  );
+} else {
+  console.error('[SW] Workbox gagal dimuat');
+}
 
 self.addEventListener("push", async (event) => {
   console.log("[SW] Push event received");

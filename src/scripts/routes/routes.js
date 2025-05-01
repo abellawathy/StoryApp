@@ -7,6 +7,7 @@ import ProfilePage from '../pages/login/profile-page';
 import ForgotPasswordPage from '../pages/login/forgot-pass-page';
 import DetailPage from '../pages/detail/detail-page';
 import NotFoundPage from '../pages/not-found/not-found-page';
+import SavedPage from '../pages/saved/saved-page';
 
 const routes = {
   '/': new HomePage(),
@@ -18,6 +19,7 @@ const routes = {
   '/add-story': new AddStoryPage(),
   '/detail/:id': new DetailPage(),
   '/not-found': new NotFoundPage(),
+  '/saved': new SavedPage(),
    404: new NotFoundPage(),
 };
 

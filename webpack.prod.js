@@ -30,7 +30,7 @@ module.exports = merge(common, {
     new CleanWebpackPlugin(),
     new MiniCssExtractPlugin(),
     new WorkboxWebpackPlugin.InjectManifest({
-      swSrc: './src/sw.js',
+      swSrc: './src/public/sw.js',
       swDest: 'sw.js',
     }),
   ],

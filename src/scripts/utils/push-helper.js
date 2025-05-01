@@ -108,10 +108,22 @@ export async function unsubscribe() {
 }
 
 export async function sendPushMessage({ title, message }) {
-  if ("serviceWorker" in navigator && navigator.serviceWorker.controller) {
-    navigator.serviceWorker.controller.postMessage({
-      type: "simulate-push",
-      payload: { title, message },
-    });
+  if ("serviceWorker" in navigator) {
+    const registration = await navigator.serviceWorker.ready;
+    const controller = navigator.serviceWorker.controller;
+
+    if (controller) {
+      controller.postMessage({
+        type: "simulate-push",
+        payload: { title, message },
+      });
+    } else if (registration.active) {
+      registration.active.postMessage({
+        type: "simulate-push",
+        payload: { title, message },
+      });
+    } else {
+      console.warn("Tidak ada service worker aktif.");
+    }
   }
 }

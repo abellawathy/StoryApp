@@ -1,8 +1,8 @@
 import { parseActivePathname } from "../../routes/url-parser";
 import DetailPagePresenter from "./detail-presenter";
-import { sendPushMessage } from "../../utils/push-helper";
 
 export default class DetailPage {
+  #presenter = null;
   async render() {
     return `
       <section class="container">

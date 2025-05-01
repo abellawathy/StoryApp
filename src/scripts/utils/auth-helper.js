@@ -9,6 +9,17 @@ const renderAuthNav = () => {
 
   if (token) {
     navAuth.innerHTML = `
+      <a href="#/saved" class="nav-link">
+        <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none"
+             viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M5 5v14l7-7 7 7V5a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2z" />
+        </svg>
+        Saved
+      </a>
+
+      <hr />
+
       <a href="#/profile" class="nav-link">
         <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none"
              viewBox="0 0 24 24" stroke="currentColor">
@@ -20,6 +31,7 @@ const renderAuthNav = () => {
     `;
 
     navBottom.innerHTML = `
+    <hr />
       <button id="logout-button" class="nav-link logout-button">
         <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none"
              viewBox="0 0 24 24" stroke="currentColor">

@@ -45,7 +45,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     if ("serviceWorker" in navigator) {
       try {
-        await navigator.serviceWorker.register('/sw.js', { type: 'module' });
+        await navigator.serviceWorker.register('/sw.js');
         console.log('✅ Service Worker Registered');
       } catch (err) {
         console.error('❌ SW registration failed: ', err);

@@ -1,2 +1,2 @@
-APP_URL=<url_aplikasi>
-MAP_SERVICE_API_KEY=<api_key>
+APP_URL=https://abellawathy.github.io/StoryApp/
+MAP_SERVICE_API_KEY=https://story-api.dicoding.dev/v1

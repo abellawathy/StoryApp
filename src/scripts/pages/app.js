@@ -12,10 +12,12 @@ import {
   generateUnsubscribeButtonTemplate,
 } from "../template";
 import { requestPermission } from "../utils/push-helper.js";
-
-const DB_NAME = "storyapp";
-const DB_VERSION = 1;
-const DB_STORE_NAME = "stories";
+import {
+  _initDb,
+  _getAllStoriesFromDb,
+  _deleteStoryFromDb,
+  _isStorySaved,
+} from "../utils/db-helper.js";
 
 class App {
   #content = null;
@@ -29,7 +31,9 @@ class App {
     this.#navigationDrawer = navigationDrawer;
     this.#overlay = document.getElementById("drawer-overlay");
 
-    this._setupDrawer();
+    if (this.#navigationDrawer && this.#drawerButton) {
+      this._setupDrawer();
+    }
   }
 
   _setupDrawer() {
@@ -92,7 +96,7 @@ class App {
   }
 
   async _clearIndexedDb() {
-    const db = this.db;
+    const db = await _initDb();
     const transaction = db.transaction(DB_STORE_NAME, "readwrite");
     const store = transaction.objectStore(DB_STORE_NAME);
     store.clear();
@@ -138,62 +142,6 @@ class App {
     }
   }
 
-  async _initDb() {
-    return new Promise((resolve, reject) => {
-      const request = indexedDB.open(DB_NAME, DB_VERSION);
-
-      request.onupgradeneeded = (event) => {
-        const db = event.target.result;
-        db.createObjectStore(DB_STORE_NAME, {
-          keyPath: "id",
-          autoIncrement: false,
-        });
-      };
-
-      request.onsuccess = (event) => {
-        this.db = event.target.result;
-        resolve(this.db);
-      };
-
-      request.onerror = (event) => {
-        reject(event.target.error);
-      };
-    });
-  }
-
-  async _addStoryToDb(story) {
-    return new Promise((resolve, reject) => {
-      const transaction = this.db.transaction(DB_STORE_NAME, "readwrite");
-      const store = transaction.objectStore(DB_STORE_NAME);
-      const request = store.add(story);
-
-      request.onsuccess = () => resolve(request.result);
-      request.onerror = () => reject(transaction.error);
-    });
-  }
-
-  async _getAllStoriesFromDb() {
-    return new Promise((resolve, reject) => {
-      const transaction = this.db.transaction(DB_STORE_NAME, "readonly");
-      const store = transaction.objectStore(DB_STORE_NAME);
-      const request = store.getAll();
-
-      request.onsuccess = () => resolve(request.result);
-      request.onerror = () => reject(transaction.error);
-    });
-  }
-
-  async _deleteStoryFromDb(id) {
-    return new Promise((resolve, reject) => {
-      const transaction = this.db.transaction(DB_STORE_NAME, "readwrite");
-      const store = transaction.objectStore(DB_STORE_NAME);
-      const request = store.delete(id);
-
-      request.onsuccess = () => resolve(request.result);
-      request.onerror = () => reject(transaction.error);
-    });
-  }
-
   async _fetchStoriesFromApi() {
     try {
       const data = await getStories();
@@ -206,11 +154,11 @@ class App {
   }
 
   async renderPage() {
-    await this._initDb();
+    await _initDb();
 
     const url = getActiveRoute();
     const page = routes[url] || routes[404];
-    const storiesFromDb = await this._getAllStoriesFromDb();
+    const storiesFromDb = await _getAllStoriesFromDb();
 
     const protectedRoutes = ["#/add", "#/profile"];
     const token = localStorage.getItem("token");
@@ -218,10 +166,10 @@ class App {
     let stories = storiesFromDb;
     if (stories.length === 0) {
       stories = await this._fetchStoriesFromApi();
-      for (const story of stories) {
-        await this._addStoryToDb(story);
-      }
+    } else {
+      stories = storiesFromDb;
     }
+
     console.log("Stories to display:", stories);
 
     if (protectedRoutes.includes(url) && !token) {

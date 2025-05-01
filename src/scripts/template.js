@@ -90,7 +90,7 @@ export function generateSubscribeButtonTemplate() {
           <div class="story-detail__body__actions__container">
             <h2>Aksi</h2>
             <div class="story-detail__actions__buttons">
-              <div id="subscribe-actions-container"></div>
+              <div id="save-actions-container"></div>
               <div id="notify-actions-container">
                 <button id="story-detail-notify-me" class="btn btn-transparent">
                   Try Notify Me <i class="far fa-bell"></i>
@@ -123,6 +123,21 @@ export function generateSubscribeButtonTemplate() {
     `;
   }
   
+  export function generateSaveStoryButtonTemplate() {
+    return `
+      <button id="story-detail-save" class="btn btn-transparent">
+        Simpan Cerita <i class="far fa-bookmark"></i>
+      </button>
+    `;
+  }
+  
+  export function generateRemoveStoryButtonTemplate() {
+    return `
+      <button id="story-detail-remove" class="btn btn-transparent">
+        Buang Cerita <i class="fas fa-bookmark"></i>
+      </button>
+    `;
+  }
   
   
   
