@@ -45,7 +45,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     if ("serviceWorker" in navigator) {
       try {
-        await navigator.serviceWorker.register('/sw.js');
+        const path = window.location.hostname === "localhost" ? "./sw.js" : "/StoryApp/sw.js";
+        await navigator.serviceWorker.register(path);
         console.log('✅ Service Worker Registered');
       } catch (err) {
         console.error('❌ SW registration failed: ', err);
